@@ -1,0 +1,25 @@
+.chatbot-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: lightblue;
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 1000;
+}
+
+
+.chatbot-iframe {
+    display: none;
+    position: fixed;
+    bottom: 40px;
+    right: 10px;
+    border: none;
+    width: 400px; 
+    height: 800px; 
+    box-shadow: 20px 20px 20px 20px rgba(0, 0, 0, 0.5); 
+    background-color: white; 
+    border-radius: 10px; 
+}

@@ -1,0 +1,554 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - Yes
+    - YES
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - exactly
+    - sure
+    - right
+    - yeah do it
+    - ok
+    - yeah submit it
+    - yeah submit
+    - yeah
+    - yes please
+    - yes please submit it
+    - yes please submit
+    - yes please submit the form
+    - yes please submit the expense form
+    - yes please submit the expense form now
+    - yes please submit the expense form right now
+    - yes please submit the expense form right away
+    - yes please submit the expense form immediately
+    - yes please submit the expense form asap
+    - yes please submit the expense form as soon as possible
+    - yay
+    - yup
+    - yo
+    - yeah details are correct
+    - yeah details are correct please submit
+    - yeah details are correct please submit it
+
+- intent: deny
+  examples: |
+    - no
+    - No
+    - NO
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - nope
+    - nope not at all
+    - nope not really
+    - no leave it
+    - no leave it please
+    - no leave it now
+    - no leave it right now
+    - no leave it right away
+    - no stop it
+    - don't submit
+    - don't submit it
+    - don't submit it please
+    - don't submit it now
+    - no no
+    - no no no
+    - naah
+    - noah
+    - naa
+    - naah not at all
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+- intent: input_expense
+  examples: |
+    - I want to input my expense
+    - I want to input my expenses
+    - I want to input my expense for today
+    - I want to input my expenses for today
+    - I want to input my expense for yesterday
+    - I want to input my expenses for yesterday
+    - I want to input my expense for tomorrow
+    - I want to input my expenses for tomorrow
+    - I want to enter my expense for today
+    - I want to enter my expenses for today
+    - I want to enter my expense for yesterday
+    - I want to enter my expenses for yesterday
+    - I want to enter my expense for tomorrow
+    - Help me enter my expense details
+    - Help me enter my expenses details
+    - Help me enter my expense details for today
+    - Help me enter my expenses details for today
+    - Help me enter my expense details for yesterday
+    - Help me enter my expenses details for yesterday
+    - Help me enter my expense details for tomorrow
+    - Help me enter my expenses details for tomorrow
+    - Help me to enter expenses
+    - Help me to enter expenses for today
+    - Help me to enter expenses for yesterday
+    - Help me to enter expenses for tomorrow
+    - Help me to enter expense
+    - Help me to enter expense for today
+    - Help me to enter expense for yesterday
+    - Help me to enter expense for tomorrow
+    - Help me to enter my expense
+    - Help me to enter my expense for today
+    - Help me to enter my expense for yesterday
+    - Help me to enter my expense for tomorrow
+    - Help me to enter my expenses
+    - Help me to enter my expenses for today
+    - Help me to add my expenses
+    - Help me to add my expenses for today
+    - Help me to add my expenses for yesterday
+    - Help me to add my expenses for tomorrow
+    - Help me to add my expense
+    - Help me to add my expense for today
+    - Help me to add my expense for yesterday
+    - Help me to add my expense for tomorrow
+    - Help me to add expense
+    - Help me to add expense for today
+    - Help me to add expense for yesterday
+    - Help me to add expense for tomorrow
+    - Help me to add my expense details
+    - Help me to add my expense details for today
+    - Help me to add my expense details for yesterday
+    - Help me to add my expense details for tomorrow
+    - Help me to add my expenses details
+    - Help me to add my expenses details for today
+    - Help me to add my expenses details for yesterday
+    - Help me to add my expenses details for tomorrow
+    - Help me to add expenses
+    - I'd like to add my expenses
+    - I'd like to add my expenses for today
+    - I'd like to add my expenses for yesterday
+    - I'd like to add my expenses for tomorrow
+    - I'd like to add my expense
+    - I'd like to add my expense for today
+    - I'd like to add my expense for yesterday
+    - I'd like to add my expense for tomorrow
+    - I'd like to add expense
+    - Let me add my expenses
+    - Let me add my expenses for today
+    - Let me add my expenses for yesterday
+    - Let me add my expenses for tomorrow
+    - Let me add my expense
+    - Let me add my expense for today
+    - Let me add my expense for yesterday
+    - Let me add my expense for tomorrow
+    - Let me add expense
+    - Let me add expense for today
+    - Let me add expense for yesterday
+    - Let me add expense for tomorrow
+    - Let me add my expense details
+    - Let me add my expense details for today
+    - Let me add my expense details for yesterday
+    - Let me add my expense details for tomorrow
+    - Let me add my expenses details
+    - Let me add my expenses details for today
+    - Let me add my expenses details for yesterday
+    - Let me add my expenses details for tomorrow
+    - Let me add expenses
+    - Let me add expenses for today
+    - Let me add expenses for yesterday
+    - Let me add expenses for tomorrow
+    - Let me add my expense details
+    - Let me add my expense details for today
+    - Let me add my expense details for yesterday
+    - Let me add my expense details for tomorrow
+    - Let me add my expenses details
+    - Let me add my expenses details for today
+    - Can you help me to add my expenses
+    - Can you help me to add my expenses for today
+    - Can you help me to add my expenses for yesterday
+    - Can you help me to add my expenses for tomorrow
+    - Can you help me to add my expense
+    - Can you help me to add my expense for today
+    - Can you help me to add my expense for yesterday
+    - Can you help me to add my expense for tomorrow
+    - Can you help me to add expense
+    - Can you help me to add expense for today
+    - Can you help me to add expense for yesterday
+    - Can you help me to add expense for tomorrow
+    - Can you help me to add my expense details
+    - Can you help me to add my expense details for today
+    - Can you help me to add my expense details for yesterday
+    - Can you help me to add my expense details for tomorrow
+    - Can you help me to add my expenses details
+    - Can you help me to add my expenses details for today
+    - Can you help me to add my expenses details for yesterday
+    - Can you help me to add my expenses details for tomorrow
+    - Can you help me to add expenses
+
+- intent: inform
+  examples: | 
+    - [Household](expense_category)
+    - [Transportation](expense_category)
+    - [Entertainment](expense_category)
+    - [work&Education](expense_category)
+    - [food&Dining](expense_category)
+    - [default](expense_category)
+    - [Household](expense_category) expense
+    - [Transportation](expense_category) expense
+    - [Entertainment](expense_category) expense
+    - [work&Education](expense_category) expense
+    - [food&Dining](expense_category) expense
+    - [Household](expense_category) expenses
+    - [Transportation](expense_category) expenses
+    - [Entertainment](expense_category) expenses
+    - [work&Education](expense_category) expenses
+    - [food&Dining](expense_category) expenses
+    - its [Household](expense_category)
+    - its [Transportation](expense_category)
+    - its [Entertainment](expense_category)
+    - its [work&Education](expense_category)
+    - its [food&Dining](expense_category)
+    - its [Household](expense_category) expense
+    - its [Transportation](expense_category) expense
+    - its [Entertainment](expense_category) expense
+    - [2345](expense_amount) rupees
+    - [2345](expense_amount) amount
+    - The amount is [2345](expense_amount) 
+    - its [567](expense_amount) rupees
+    - its [45](expense_amount) rupees
+    - expense amount is [2345.0](expense_amount) rupees
+    - the expense is [2345.0](expense_amount) rupees
+    - the money spent is [456](expense_amount) rupees
+    - the expense amount is [456](expense_amount) rupees
+    - the expense amount is [456](expense_amount)
+    - [today](expense_date)
+    - [Today](expense_date)
+    - [today](expense_date) is the date
+    - [yesterday](expense_date)
+    - [Yesterday](expense_date)
+    - [yesterday](expense_date) is the date
+    - its [today](expense_date)
+    - its [yesterday](expense_date)
+    - its [tomorrow](expense_date)
+    - its [day before yesterday](expense_date)
+    - its [day after tomorrow](expense_date)
+    - [today](expense_date)
+    - [tomorrow](expense_date)
+    - [yesterday](expense_date)
+    - [day before yesterday](expense_date)
+    - [day after tomorrow](expense_date)
+    - [2023/08/17](expense_date) is the date
+    - its [2023/08/17](expense_date)
+    - its [2023/08/17](expense_date) is the date
+    - [2023/08/20](expense_date)
+    - [2023/08/20](expense_date) is the date
+    - The date is [2023/08/17](expense_date)
+    - The date is [2023-08-17](expense_date)
+    - [2023-08-17](expense_date)
+    - [2023-08-17](expense_date) is the date
+    - [2023.08.17](expense_date) is the date
+    - [2023.08.17](expense_date)
+    - the date is [2023.08.17](expense_date)
+    - its [2023.08.17](expense_date)
+    - its [2023-08-17](expense_date)
+    - [2023-08-17](expense_date)
+    - [2023-08-17](expense_date) is the date
+    - [2023-08-19](expense_date)
+    - [2023-08-19](expense_date) is the date
+    - its [2023-08-19](expense_date)
+    = The date is [2023-08-19](expense_date)
+    - The date is [2023-08-31](expense_date)
+    - the date is of [today](expense_date)
+    - the date is of [yesterday](expense_date)
+    - I want to group by expense [categories](vis_group_by_type)
+    - Group by expense [categories](vis_group_by_type)
+    - Group by [categories](vis_group_by_type)
+    - Group by [categories](vis_group_by_type) please
+    - I want to group by [categories](vis_group_by_type)
+    - I want to group by [categories](vis_group_by_type) please
+    - Please group by [categories](vis_group_by_type)
+    - I'd like to group by [categories](vis_group_by_type)
+    - I'd like to group by [categories](vis_group_by_type) please
+    - I'd like to group by expense [categories](vis_group_by_type)
+    - I'd like to group by expense [categories](vis_group_by_type) please
+    - I'd like to see my expenses grouped by [categories](vis_group_by_type)
+    - I'd like to see my expenses grouped by [categories](vis_group_by_type) please
+    - [categories](vis_group_by_type) is the group by type
+    - [categories](vis_group_by_type)
+    - [categories](vis_group_by_type) please
+    - expense [categories](vis_group_by_type) is the group by type
+    - expense [categories](vis_group_by_type)
+    - Please group by expense [categories](vis_group_by_type)
+    - Please group by [categories](vis_group_by_type)
+    - I want to group by trends over [time](vis_group_by_type)
+    - Group by trends over [time](vis_group_by_type)
+    - Group by [time](vis_group_by_type)
+    - Group by [time](vis_group_by_type) please
+    - I'd like to group by [time](vis_group_by_type) intervals
+    - I'd like to group by [time](vis_group_by_type) intervals please
+    - Please group by [time](vis_group_by_type) intervals
+    - trends over [time](vis_group_by_type)
+    - trends over [time](vis_group_by_type) please
+    - I want to group by [time](vis_group_by_type) intervals
+    - I want to group by [time](vis_group_by_type) intervals please
+    - I'd like to see my expenses grouped by [time](vis_group_by_type) intervals
+    - I'd like to see my expenses grouped by [time](vis_group_by_type) intervals please
+    - [time](vis_group_by_type) is the group by type
+    - [time](vis_group_by_type)
+    - [time](vis_group_by_type) please
+    - trends over [time](vis_group_by_type) is the group by type
+    - trends over [time](vis_group_by_type)
+    - Please group by trends over [time](vis_group_by_type)
+    - Please group by [time](vis_group_by_type)
+    - [sum](vis_aggregate_type)
+    - [average](vis_aggregate_type)
+    - [minimum](vis_aggregate_type)
+    - [maximum](vis_aggregate_type)
+    - [2023/08/17 to 2023/08/22](vis_time_period)
+    - [2023/08/17 to 2023/08/22](vis_time_period) is the time period
+    - [2023/08/17 to 2023/08/22](vis_time_period) please
+    - [2023/08/17 to 2023/08/22](vis_time_period) is the time period please
+    - keep it as [2023/08/17 to 2023/08/22](vis_time_period)
+    - The timeframe would be [2023/08/17 to 2023/08/22](vis_time_period)
+    - [2023-08-17 to 2023-08-22](vis_time_period) is the time period
+    - [2023-08-17 to 2023-08-22](vis_time_period)
+    - [2023-08-17 to 2023-08-22](vis_time_period) please
+    - [2023-08-17 to 2023-08-22](vis_time_period) is the time period please
+    - keep it as [2023-08-17 to 2023-08-22](vis_time_period)
+    - The timeframe would be [2023-08-17 to 2023-08-22](vis_time_period)
+    - [2023.08.17 to 2023.08.22](vis_time_period) is the time period
+    - [2023.08.17 to 2023.08.22](vis_time_period)
+    - [2023.08.17 to 2023.08.22](vis_time_period) please
+    - [2023.08.17 to 2023.08.22](vis_time_period) is the time period please
+    - keep it as [2023.08.17 to 2023.08.22](vis_time_period)
+    - The timeframe would be [2023.08.17 to 2023.08.22](vis_time_period)
+    - [2023.08.17 to 2023.08.22](vis_time_period) is the time period
+    - [2023.08.17 to 2023.08.22](vis_time_period)
+    - [2023.08.17 to 2023.08.22](vis_time_period) please
+    - [2023.08.17 to 2023.08.22](vis_time_period) is the time period please
+    - keep it as [2023.08.17 to 2023.08.22](vis_time_period)
+    - The timeframe would be [2023.08.17 to 2023.08.22](vis_time_period)
+    - The timeframe would be [last month](vis_time_period)
+    - The timeframe would be [last month](vis_time_period) please
+    - [last month](vis_time_period) is the time period
+    - [last month](vis_time_period)
+    - [last month](vis_time_period) please
+    - [last year](vis_time_period) is the time period
+    - [last year](vis_time_period)
+    - The timeframe would be [last year](vis_time_period)
+    - The timeframe would be [last year](vis_time_period) please
+    - [last year](vis_time_period) please
+    - [last week](vis_time_period) is the time period
+    - [last week](vis_time_period)
+    - [last week](vis_time_period) please
+    - The timeframe would be [last week](vis_time_period)
+    - The timeframe would be [last week](vis_time_period) please
+    - [this week](vis_time_period) is the time period
+    - [this week](vis_time_period)
+    - [this week](vis_time_period) please
+    - The timeframe would be [this week](vis_time_period)
+    - The timeframe would be [this week](vis_time_period) please
+    - [this month](vis_time_period) is the time period
+    - [this month](vis_time_period)
+    - [this month](vis_time_period) please
+    - The timeframe would be [this month](vis_time_period)
+    - The timeframe would be [this month](vis_time_period) please
+    - [this year](vis_time_period) is the time period
+    - [this year](vis_time_period)
+    - [this year](vis_time_period) please
+    - The timeframe would be [this year](vis_time_period)
+    - The timeframe would be [this year](vis_time_period) please
+    - [this year](vis_time_period) is the time period
+    - [this year](vis_time_period)
+    - [this year](vis_time_period) please
+    - The timeframe would be [this year](vis_time_period)
+    - The timeframe would be [this year](vis_time_period) please
+    - [today](vis_time_period) is the time period
+    - [today](vis_time_period)
+    - [today](vis_time_period) please
+    - The timeframe would be [today](vis_time_period)
+    - The timeframe would be [today](vis_time_period) please
+    - [yesterday](vis_time_period) is the time period
+    - [yesterday](vis_time_period)
+    - [yesterday](vis_time_period) please
+    - The timeframe would be [yesterday](vis_time_period)
+    - The timeframe would be [yesterday](vis_time_period) please
+    - [day before yesterday](vis_time_period) is the time period
+    - [day before yesterday](vis_time_period)
+    - [day before yesterday](vis_time_period) please
+    - The timeframe would be [day before yesterday](vis_time_period)
+    - The timeframe would be [day before yesterday](vis_time_period) please
+
+
+
+
+- intent: cancel_expense_form
+  examples : |
+    - cancel
+    - cancel the form
+    - cancel the expense form
+    - cancel the expense form please
+    - cancel the expense form now
+    - cancel the expense form right now
+    - cancel the expense form right away
+    - cancel the expense form immediately
+    - cancel the expense form asap
+    - cancel the expense form as soon as possible
+    - cancel the expense form as soon as you can
+    - cancel the expense form as soon as you can please
+    - cancel the expense form as soon as you can now
+    - cancel the expense form as soon as you can right now
+    - cancel the expense form as soon as you can right away
+    - cancel the expense form as soon as you can immediately
+    - cancel the expense form as soon as you can asap
+    - cancel the expense form as soon as you can as soon as possible
+    - cancel the expense form as soon as you can as soon as you can
+    - stop the expense form
+    - stop the expense form please
+    - stop the expense form now
+    - stop the expense form right now
+    - stop the expense form right away
+    - stop the expense form immediately
+    - stop the expense form asap
+    - stop the expense form as soon as possible
+    - stop the expense form as soon as you can
+    - stop the expense form as soon as you can please
+    - stop the expense form as soon as you can now
+    - stop the expense form as soon as you can right now
+    - stop the expense form as soon as you can right away
+    - stop the expense form as soon as you can immediately
+    - stop the expense form as soon as you can asap
+    - stop the expense form as soon as you can as soon as possible
+    - stop the expense form as soon as you can as soon as you can
+    - stop it
+    - stop it please
+    - stop it now
+    - stop it right now
+    - stop it right away
+    - cancel it
+    - cancel it please
+    - cancel it now
+    - cancel it right now
+    - cancel it right away
+    - cancel it immediately
+    - cancel it asap
+    - stop
+    - stop please
+    - Don't want to enter expense
+    - Don't want to enter expense details
+    - Don't want to enter anymore
+    - Don't want to enter anymore expense
+    - Don't want to enter anymore expense details
+
+- intent: intent_for_visualisation_report
+  examples : | 
+    - Can you show me the visualisation report
+    - Can you show me the visualisation report
+    - Can you show me the visualisation report please
+    - Can you show me the visualisation report now
+    - Can you show me the visualisation report right now
+    - Help me to see the visualisation report
+    - Help me to see the visualisation report please
+    - Help me to see the visualisation report now
+    - Create a visualisation report for me
+    - Create a visualisation report for me please
+    - I'm interested in getting a visualization report for my spending.
+    - I'm interested in getting a visualization report for my spending please
+    - I'm interested in getting a visualization report for my spending now
+    - Can you generate a visualization report for me?
+    - Can you generate a visualization report for me please?
+    - Can you generate a visualization report for me now?
+    - I'd like to see a visualization report of my expenses.
+    - I'd like to see a visualization report of my expenses please.
+    - I'd like to see a visualization report of my expenses now.
+    - I'd like to see a visualization report of my expenses right now.
+    - I want a report that showcases my expenses using visual representations. Is that possible?
+    - I want a report that showcases my expenses using visual representations. Is that possible? Please
+    - I want a report that showcases my expenses using visual representations.
+    - I want a report that showcases my expenses using visual representations. Please
+    - Show me my expenses in a report format with visualizations like graphs and charts.
+    - I'm looking for a visual report illustrating my spending. Can you help?
+    - I'm looking for a visual report illustrating my spending. Can you help? Please
+    - Create a detailed report featuring visualizations that depict my expenditure
+    - Create a detailed report featuring visualizations that depict my expenditure please
+    - Could you provide me with a report that includes visualizations of my expenses?
+    - Can you provide my expense summary in a visual format?
+    - Can you provide my expense summary?
+    - Can you provide my expense summary please?
+    - Help me create a visual report of my expenses.
+    - Can you compile a report that uses graphs to illustrate my expenditure?
+    - Can you compile a report that uses graphs to illustrate my expenditure? Please
+    - Can you compile a report that uses graphs that depict my expenditure? Now
+    - Prepare a report that uses graphics to showcase my spending habits

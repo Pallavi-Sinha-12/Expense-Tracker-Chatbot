@@ -1,0 +1,81 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Ask if you can help when user greets
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Start Expense Form if user asks
+  steps:
+  - intent: input_expense
+  - action: utter_start_expense_form
+  - action: expense_form
+  - active_loop: expense_form
+
+
+- rule: Submit form if all required slots are filled
+  condition:
+  - active_loop: expense_form
+  steps:
+  - action: expense_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit_expense_form
+  - action: utter_conclude
+  - action: action_reset_expense_form
+
+
+
+- rule: Cancel form if user says cancel
+  condition:
+  - active_loop: expense_form
+  steps:
+  - intent: cancel_expense_form
+  - action: action_reset_expense_form
+  - action: utter_cancel_expense_form
+  - action: utter_conclude
+  - action: action_deactivate_loop
+
+- rule: Start Visualisation Form if user asks
+  steps:
+  - intent: intent_for_visualisation_report
+  - action: utter_start_visualisation_form
+  - action: visualisation_form
+  - active_loop: visualisation_form
+
+
+- rule: Submit visualisation form if all required slots are filled
+  condition:
+  - active_loop: visualisation_form
+  steps:
+  - action: visualisation_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit_visualisation_form
+  - action: utter_conclude
+  - action: action_reset_visualisation_form
+
+
+
+- rule: Cancel form if user says cancel
+  condition:
+  - active_loop: visualisation_form
+  steps:
+  - intent: cancel_expense_form
+  - action: action_reset_visualisation_form
+  - action: utter_conclude
+  - action: action_deactivate_loop

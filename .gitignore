@@ -1,0 +1,5 @@
+venv
+.rasa
+.vscode
+.talismanrc
+.DS_Store

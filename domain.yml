@@ -1,0 +1,137 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - input_expense
+  - inform
+  - cancel_expense_form
+  - intent_for_visualisation_report
+
+entities:
+  - expense_category
+  - expense_amount
+  - expense_date
+  - expense_confirmation
+  - vis_group_by_type
+  - vis_aggregate_type
+  - vis_time_period
+
+slots:
+  expense_category:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: expense_category
+  expense_amount:
+    type: float
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: expense_amount
+  expense_date:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: expense_date
+  expense_confirmation:
+    type: bool
+    influence_conversation: true
+    mappings:
+    - type: from_intent
+      value: true
+      intent: affirm
+    - type: from_intent
+      value: false
+      intent: deny
+  vis_group_by_type:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: vis_group_by_type
+  vis_aggregate_type:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: vis_aggregate_type
+  vis_time_period:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: vis_time_period
+      
+
+forms:
+  expense_form:
+    required_slots:
+      - expense_category
+      - expense_amount
+      - expense_date
+      - expense_confirmation
+
+  visualisation_form:
+    required_slots:
+      - vis_group_by_type
+      - vis_aggregate_type
+      - vis_time_period
+
+responses:
+  utter_greet:
+  - text: "Hey! How can I help you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_start_expense_form:
+  - text: "Alright! Let's start the expense form."
+
+  utter_conclude:
+  - text: "Thank you for using our service. Have a nice day!"
+
+  utter_cancel_expense_form:
+  - text: "Alright! I have cancelled the expense form."
+
+  utter_start_visualisation_form:
+  - text: "Sure I can provide you with a visualization report of your expenses"
+
+actions:
+  - action_ask_expense_category
+  - validate_expense_form
+  - action_ask_expense_amount
+  - action_ask_expense_date
+  - action_reset_expense_form
+  - action_submit_expense_form
+  - action_ask_expense_confirmation
+  - action_ask_vis_group_by_type
+  - action_ask_vis_aggregate_type
+  - action_ask_vis_time_period
+  - action_submit_visualisation_form
+  - action_reset_visualisation_form
+  - validate_visualisation_form
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
