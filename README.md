@@ -239,9 +239,7 @@ Below is the demo of a sample website that integrates our Expense Tracker Chatbo
 
 ### 4. Full Demo
 
-<video width="700" height="500" controls>
-  <source src="https://drive.google.com/file/d/1gHLhFs5gNAH4Gb6VOfkZCx6hKgPprnnI/view?usp=sharing" type="video/mp4">
-</video>
+You can watch full demo [here](https://drive.google.com/file/d/1gHLhFs5gNAH4Gb6VOfkZCx6hKgPprnnI/view?usp=sharing)
 
 
 ## Project-Structure
