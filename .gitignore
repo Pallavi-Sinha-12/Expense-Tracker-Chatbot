@@ -9,3 +9,4 @@ data_exporter/__pycache__
 database/__pycache__
 exports/
 models/
+database/DatabaseConfig.py

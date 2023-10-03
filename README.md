@@ -286,13 +286,14 @@ If you find any issue or have suggestions for improvements, please submit them a
 
 Here are some ideas for future enhancements to this project:
 
+- [ ] Use environment variables to store database credentials.
 - [ ] Add support for chatbot to ask expense details in one go if user wants to enter expense.
 - [ ] Improve chatbot's natural language understanding to handle more complex utterances for expense report requests.
+- [ ] Add support of other SQL databases like MySQL, PostgreSQL, etc.
+- [ ] Deploy the chatbot to production.
 - [ ] Support for other visualizations like pie charts, line charts, etc.
 - [ ] Implement personalized user expense tracking.
 - [ ] Add data export functionality to download expense reports.
-- [ ] Add support of other SQL databases like MySQL, PostgreSQL, etc.
-- [ ] Deploy the chatbot on a cloud platform like Azure or AWS.
 - [ ] Create a mobile app version for on-the-go expense tracking.
 - [ ] Support for dates like (5th Oct 2023, 5th October, 5th Oct, 5 Oct 2023, 5 October, 5 oct, 5 OCT 2023)
 - [ ] Make this project as generic so that people can add their own data and intents to customize it for their own use cases. 
