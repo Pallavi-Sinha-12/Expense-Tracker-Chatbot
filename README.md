@@ -286,7 +286,7 @@ If you find any issue or have suggestions for improvements, please submit them a
 
 Here are some ideas for future enhancements to this project:
 
-- [ ] Use environment variables to store database credentials.
+- [ ] Use environment variables to store database configuration details.
 - [ ] Add support for chatbot to ask expense details in one go if user wants to enter expense.
 - [ ] Improve chatbot's natural language understanding to handle more complex utterances for expense report requests.
 - [ ] Add support of other SQL databases like MySQL, PostgreSQL, etc.
