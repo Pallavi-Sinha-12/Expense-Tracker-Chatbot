@@ -259,9 +259,9 @@ You can watch full demo [here](https://drive.google.com/file/d/1gHLhFs5gNAH4Gb6V
 - `database/DatabaseConfig.py` - This Python script contains the database configuration details.
 - `database/SQLQuery.py` - This Python script creates SQL Query to retrieve expense data for displaying visual reports based on user's request.
 - `database/SQLDatabase.py` - This Python script uses the pyodbc library to connect to the Azure SQL Database and contains functions to insert and retrieve expense data.
-- `models/` - After training, Rasa stores model files in this directory.
+- `models/` - After training, Rasa stores model files in this directory. This folder is created when you train the chatbot.
 - `data_exporter/CSVFile.py` - This Python script contains functions to export data for requested visual report to a CSV file.
-- `data_exporter/exports` - This folder contains the CSV files exported for requested visual reports.`
+- `data_exporter/exports` - This folder contains the CSV files exported for requested visual reports. This folder is created when you request a visual report.
 - `website/` - This folder contains the necessary files to host a simple website that integrates our Expense Tracker Chatbot using an iframe. This web interface is a good example of how you can host embed your chatbot in a website running on different server.
 - `website/index.html` - The main HTML file of the website. It provides the structure and content of the webpage. It includes an embedded iframe for the chatbot.
 - `website/styles.css` - The Cascading Style Sheets (CSS) file that defines the visual styles and layout of the webpage. It ensures the chatbot icon and iframe are displayed correctly.
