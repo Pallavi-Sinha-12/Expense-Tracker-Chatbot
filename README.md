@@ -31,10 +31,10 @@ Expense Tracker Chatbot is an innovative project that combines the power of natu
 
 ## Technologies-Used
 
-[![Python](https://img.shields.io/badge/Python-3.10.13-blue)](https://www.python.org/)
-[![Rasa](https://img.shields.io/badge/Rasa-3.6.4-green)](https://rasa.com/)
+[![Python](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/)
+[![Rasa](https://img.shields.io/badge/Rasa-3.6-green)](https://rasa.com/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.25-brightgreen)](https://www.streamlit.io/)
-[![Pandas](https://img.shields.io/badge/Pandas-2.0.3-yellow)](https://pandas.pydata.org/)
+[![Pandas](https://img.shields.io/badge/Pandas-2.0-yellow)](https://pandas.pydata.org/)
 [![PyODBC](https://img.shields.io/badge/PyODBC-4.0-orange)](https://pypi.org/project/pyodbc/)
 [![Azure](https://img.shields.io/badge/Azure-Cloud-blue)](https://azure.microsoft.com/)
 
@@ -182,7 +182,7 @@ By default, RASA uses the latest trained model. If you want to use a specific mo
 ```bash
   rasa run --enable-api
 ```
-This will start the RASA server on localhost. The default port is 5005.
+This will start the RASA server on localhost. The default port is 5005. The RASA server will be used by the RASA actions endpoint and the RASA chatbot streamlit application. This may take a minute to start. Once the server is started, follow the next steps.
 
 **Terminal 2** : Run RASA actions endpoint in other terminal
 
@@ -246,7 +246,7 @@ You can watch full demo [here](https://drive.google.com/file/d/1gHLhFs5gNAH4Gb6V
 
 - `data/nlu.yml` - It contains structured example user utterances. This usually includes the user's intent and any entities their message contains.
 - `data/rules.yml` - This contains the training data used to train the assistant's dialogue management model. Rules describe short pieces of conversations that should always follow the same path.
-- `data/stories/stories.yml` - This contains stories which is used to train models that are able to generalize to unseen conversation paths.
+- `data/stories.yml` - This contains stories which is used to train models that are able to generalize to unseen conversation paths.
 - `actions/actions.py` - This file contains custom action classes that define how the bot should respond to user inputs.
 - `domain.yml` - The domain file defines the actions, intents, entities, responses, and templates that the assistant can use.
 - `endpoints.yml`: Specifies the endpoints for your custom action server and NLU model server.
@@ -259,9 +259,9 @@ You can watch full demo [here](https://drive.google.com/file/d/1gHLhFs5gNAH4Gb6V
 - `database/DatabaseConfig.py` - This Python script contains the database configuration details.
 - `database/SQLQuery.py` - This Python script creates SQL Query to retrieve expense data for displaying visual reports based on user's request.
 - `database/SQLDatabase.py` - This Python script uses the pyodbc library to connect to the Azure SQL Database and contains functions to insert and retrieve expense data.
-- `models/` - After training, Rasa stores model files in this directory.
+- `models/` - After training, Rasa stores model files in this directory. This folder is created when you train the chatbot.
 - `data_exporter/CSVFile.py` - This Python script contains functions to export data for requested visual report to a CSV file.
-- `data_exporter/exports` - This folder contains the CSV files exported for requested visual reports.`
+- `data_exporter/exports` - This folder contains the CSV files exported for requested visual reports. This folder is created when you request a visual report.
 - `website/` - This folder contains the necessary files to host a simple website that integrates our Expense Tracker Chatbot using an iframe. This web interface is a good example of how you can host embed your chatbot in a website running on different server.
 - `website/index.html` - The main HTML file of the website. It provides the structure and content of the webpage. It includes an embedded iframe for the chatbot.
 - `website/styles.css` - The Cascading Style Sheets (CSS) file that defines the visual styles and layout of the webpage. It ensures the chatbot icon and iframe are displayed correctly.
