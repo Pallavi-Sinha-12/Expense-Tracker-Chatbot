@@ -3,3 +3,9 @@ venv
 .vscode
 .talismanrc
 .DS_Store
+actions/__pycache__
+data/__pycache__
+data_exporter/__pycache__
+database/__pycache__
+exports/
+models/

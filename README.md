@@ -31,10 +31,10 @@ Expense Tracker Chatbot is an innovative project that combines the power of natu
 
 ## Technologies-Used
 
-[![Python](https://img.shields.io/badge/Python-3.10.13-blue)](https://www.python.org/)
-[![Rasa](https://img.shields.io/badge/Rasa-3.6.4-green)](https://rasa.com/)
+[![Python](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/)
+[![Rasa](https://img.shields.io/badge/Rasa-3.6-green)](https://rasa.com/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.25-brightgreen)](https://www.streamlit.io/)
-[![Pandas](https://img.shields.io/badge/Pandas-2.0.3-yellow)](https://pandas.pydata.org/)
+[![Pandas](https://img.shields.io/badge/Pandas-2.0-yellow)](https://pandas.pydata.org/)
 [![PyODBC](https://img.shields.io/badge/PyODBC-4.0-orange)](https://pypi.org/project/pyodbc/)
 [![Azure](https://img.shields.io/badge/Azure-Cloud-blue)](https://azure.microsoft.com/)
 
@@ -182,7 +182,7 @@ By default, RASA uses the latest trained model. If you want to use a specific mo
 ```bash
   rasa run --enable-api
 ```
-This will start the RASA server on localhost. The default port is 5005.
+This will start the RASA server on localhost. The default port is 5005. The RASA server will be used by the RASA actions endpoint and the RASA chatbot streamlit application. This may take a minute to start. Once the server is started, follow the next steps.
 
 **Terminal 2** : Run RASA actions endpoint in other terminal
 
@@ -246,7 +246,7 @@ You can watch full demo [here](https://drive.google.com/file/d/1gHLhFs5gNAH4Gb6V
 
 - `data/nlu.yml` - It contains structured example user utterances. This usually includes the user's intent and any entities their message contains.
 - `data/rules.yml` - This contains the training data used to train the assistant's dialogue management model. Rules describe short pieces of conversations that should always follow the same path.
-- `data/stories/stories.yml` - This contains stories which is used to train models that are able to generalize to unseen conversation paths.
+- `data/stories.yml` - This contains stories which is used to train models that are able to generalize to unseen conversation paths.
 - `actions/actions.py` - This file contains custom action classes that define how the bot should respond to user inputs.
 - `domain.yml` - The domain file defines the actions, intents, entities, responses, and templates that the assistant can use.
 - `endpoints.yml`: Specifies the endpoints for your custom action server and NLU model server.

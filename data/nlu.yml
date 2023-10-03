@@ -328,7 +328,7 @@ nlu:
     - [2023-08-19](expense_date)
     - [2023-08-19](expense_date) is the date
     - its [2023-08-19](expense_date)
-    = The date is [2023-08-19](expense_date)
+    - The date is [2023-08-19](expense_date)
     - The date is [2023-08-31](expense_date)
     - the date is of [today](expense_date)
     - the date is of [yesterday](expense_date)
