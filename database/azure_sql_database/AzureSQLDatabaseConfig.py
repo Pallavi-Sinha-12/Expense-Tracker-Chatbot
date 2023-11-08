@@ -1,6 +1,6 @@
 from enum import Enum
 
-class DatabaseConfig(Enum):
+class AzureSQLDatabaseConfig(Enum):
 
     SQL_DATABASE_SERVER_NAME = None
     SQL_DATABASE_NAME = None
