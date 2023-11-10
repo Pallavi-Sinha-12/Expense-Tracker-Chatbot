@@ -144,7 +144,7 @@ Store the database password in Azure Key Vault. You can follow the [official doc
 
 #### 5. Create Azure SQL Database Table
 
-Go to you Azure Portal and create table named `tracker.expense`. Add columns `category`, `amount`, `date` in the table. The data type of `category` column should be `varchar(50)`, `amount` column should be `int` and `date` column should be `date`. You can follow the [official documentation](https://docs.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal) to create an Azure SQL Database table.
+Go to you Azure Portal and create table named `tracker.expense`. Add columns `category`, `amount`, `date` in the table. The data type of `category` column should be `varchar(255)`, `amount` column should be `int` and `date` column should be `date`. You can follow the [official documentation](https://docs.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal) to create an Azure SQL Database table.
 
 #### 6. Add client IP to Azure SQL Database Firewall
 
@@ -156,11 +156,11 @@ Install the `Microsoft ODBC Driver 17` for connecting to Azure SQL Database. You
 
 #### 8. Add your Database Credentials to AzureSQLDatabaseConfig.py
 
-Replace the `SQL_DATABASE_SERVER_NAME`, `SQL_DATABASE_NAME`, `SQL_DATABASE_USERNAME`, `KEY_VAULT_URL`, `SQL_DATABASE_PASSWORD_SECRET_NAME` in `database/DatabaseConfig.py` with your database credentials.
+Replace the `SQL_DATABASE_SERVER_NAME`, `SQL_DATABASE_NAME`, `SQL_DATABASE_USERNAME`, `KEY_VAULT_URL`, `SQL_DATABASE_PASSWORD_SECRET_NAME` in `database/azure_sql_database/AzureSQLDatabaseConfig.py` with your database credentials.
 
 #### 9. Add 'AzureSQL' as database type in actions.py file
 
-Replace the `SQL_DATABASE_TYPE` in `actions/actions.py` with `AzureSQL`.
+Assign `AzureSQL` to `SQL_DATABASE_TYPE` in `actions/actions.py`.
 
 ### Database option 2: PostgreSQL
 
@@ -168,16 +168,12 @@ Replace the `SQL_DATABASE_TYPE` in `actions/actions.py` with `AzureSQL`.
 
 Install PostgreSQL on your local machine. You can follow the [official documentation](https://www.postgresql.org/download/) to install PostgreSQL. If you are on macOS, you can install PostgreSQL using Homebrew. You can follow the [official documentation](https://wiki.postgresql.org/wiki/Homebrew) to install PostgreSQL using Homebrew.
 
-#### 2. Add your password in setup_script.sql
+#### 2. Create Role and assign privileges
 
-Replace the `<your-password>` in `setup_script.sql` with your password. You can find the `setup_script.sql` in the `database/postgres_sql` directory.
-
-#### 4. Run setup_script.sql
-
-In the command line, go to the `database/postgres_sql` directory.
+In the command line, go to the `database/postgres_sql_database` directory.
 
 ```bash
-  cd database/postgres_sql
+  cd database/postgres_sql_database
 ```
 
 Run the following command to connect to PostgreSQL Database.
@@ -186,23 +182,46 @@ Run the following command to connect to PostgreSQL Database.
   psql postgres
 ```
 
-Run the following command to create user, database, schema and table.
+Now run the following command to create a role named `expense_user` and assign privileges to the role. Replace `<your_password>` with your password.
+
+```bash
+  CREATE ROLE expense_user WITH LOGIN PASSWORD '<your_password>';
+  ALTER ROLE expense_user CREATEDB;
+```
+
+Quit the PostgreSQL Database by running the following command.
+
+```bash
+  \q
+```
+
+#### 3. Run setup_script.sql
+
+Now as we have newly created user, we will create database, schema and table.
+
+Run the following command to connect to PostgreSQL Database with the new user `expense_user`.
+
+```bash
+  psql postgres -U expense_user
+```
+
+Run the following command to create database, schema and table.
 
 ```bash
   \i setup_script.sql
 ```
 
-#### 5. Add your Database Credentials to DatabaseConfig.py
+#### 4. Add your Database Credentials to PostgresSQLDatabaseConfig.py
 
-Replace the `SQL_DATABASE_HOST`, `PORT`, `SQL_DATABASE_NAME`, `SQL_DATABASE_USERNAME`, `SQL_DATABASE_PASSWORD` in `database/postgres_sql/PostgresSQLDatabaseConfig.py` with your database credentials.
+Replace the `SQL_DATABASE_HOST`, `PORT`, `SQL_DATABASE_NAME`, `SQL_DATABASE_USERNAME`, `SQL_DATABASE_PASSWORD` in `database/postgres_sql/PostgresSQLDatabaseConfig.py` with your database credentials. The values of `SQL_DATABASE_USERNAME` and `SQL_DATABASE_PASSWORD` should be same as the one you created in step 2. The others are also added by default. If you have changed the default values, you can replace them with your values.
 
-#### 6. Add 'PostgresSQL' as database type in actions.py file
+#### 5. Add 'PostgresSQL' as database type in actions.py file
 
-Replace the `SQL_DATABASE_TYPE` in `actions/actions.py` with `PostgresSQL`.
+Assign `PostgresSQL` to `SQL_DATABASE_TYPE` in `actions/actions.py`.
 
 ## Interact-with-Chatbot
 
-Train RASA chatbot with data
+Make sure you are in root directory. Train RASA chatbot with data
 
 ```bash
   rasa train

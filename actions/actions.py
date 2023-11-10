@@ -20,7 +20,7 @@ from database.azure_sql_database.AzureSQLDatabaseConfig import AzureSQLDatabaseC
 from database.postgres_sql_database.PostgresSQLDatabaseConfig import PostgresSQLDatabaseConfig
 
 EXPENSE_CATEGORIES =  ["household", "transportation", "work&education", "food&dining", "entertainment"]
-DATABASE_TYPE = "PostgresSQL"
+DATABASE_TYPE = "<your_database_type>"
 
 
 def get_database_connector_args():

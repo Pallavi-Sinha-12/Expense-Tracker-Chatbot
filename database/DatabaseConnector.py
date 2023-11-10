@@ -19,4 +19,7 @@ class DatabaseConnector:
         columns = ", ".join(data.keys())
         values = ", ".join(["'" + str(value) + "'" for value in data.values()])
         sql_query = f"INSERT INTO {schema_name}.{table_name} ({columns}) VALUES ({values})"
-        self.execute_query(sql_query)
+        conn = self.connect()
+        cursor = conn.cursor()
+        cursor.execute(sql_query)
+        conn.commit()
