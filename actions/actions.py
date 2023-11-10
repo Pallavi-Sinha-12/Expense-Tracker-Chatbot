@@ -13,13 +13,37 @@ from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from rasa_sdk.events import AllSlotsReset
-from database.AzureKeyVault import AzureKeyVault
+from database.DatabaseFactory import DatabaseFactory
+from database.azure_sql_database.AzureKeyVault import AzureKeyVault
 from data_exporter.CSVFile import CSVFile
-from database.SQLDatabase import SQLDatabase
-from database.SQLQuery import SQLQuery
-from database.DatabaseConfig import DatabaseConfig
+from database.azure_sql_database.AzureSQLDatabaseConfig import AzureSQLDatabaseConfig
+from database.postgres_sql_database.PostgresSQLDatabaseConfig import PostgresSQLDatabaseConfig
 
 EXPENSE_CATEGORIES =  ["household", "transportation", "work&education", "food&dining", "entertainment"]
+DATABASE_TYPE = "<your_database_type>"
+
+
+def get_database_connector_args():
+    if DATABASE_TYPE == "AzureSQL":
+        sql_server_name = AzureSQLDatabaseConfig.SQL_DATABASE_SERVER_NAME.value
+        sql_database_name = AzureSQLDatabaseConfig.SQL_DATABASE_NAME.value
+        sql_database_username = AzureSQLDatabaseConfig.SQL_DATABASE_USERNAME.value
+        key_vault_url =  AzureSQLDatabaseConfig.KEY_VAULT_URL.value
+        sql_database_password_secret_name = AzureSQLDatabaseConfig.SQL_DATABASE_PASSWORD_SECRET_NAME.value
+    
+        azureKeyVault = AzureKeyVault(key_vault_url)
+        sql_database_password = azureKeyVault.get_secret(sql_database_password_secret_name)
+        database_connector_args = {"server": sql_server_name, "database": sql_database_name, "username": sql_database_username, "password": sql_database_password}
+
+    elif DATABASE_TYPE == "PostgresSQL":
+        sql_host_name = PostgresSQLDatabaseConfig.SQL_DATABASE_HOST.value
+        sql_port = PostgresSQLDatabaseConfig.PORT.value
+        sql_database_name = PostgresSQLDatabaseConfig.SQL_DATABASE_NAME.value
+        sql_database_username = PostgresSQLDatabaseConfig.SQL_DATABASE_USERNAME.value
+        sql_database_password = PostgresSQLDatabaseConfig.SQL_DATABASE_PASSWORD.value
+
+        database_connector_args = {"host": sql_host_name, "port": sql_port, "database": sql_database_name, "user": sql_database_username, "password": sql_database_password}
+    return database_connector_args
 
 
 class ValidateExpenseForm(FormValidationAction):
@@ -144,17 +168,12 @@ class ActionSubmitExpenseForm(Action):
             expense_date = tracker.get_slot("expense_date")
             column_value_dict = {"category": expense_category, "amount": expense_amount, "date": expense_date}
             
-            sql_server_name = DatabaseConfig.SQL_DATABASE_SERVER_NAME.value
-            sql_database_name = DatabaseConfig.SQL_DATABASE_NAME.value
-            sql_database_username = DatabaseConfig.SQL_DATABASE_USERNAME.value
-            key_vault_url =  DatabaseConfig.KEY_VAULT_URL.value
-            sql_database_password_secret_name = DatabaseConfig.SQL_DATABASE_PASSWORD_SECRET_NAME.value
-            
-            azureKeyVault = AzureKeyVault(key_vault_url)
-            sql_database_password = azureKeyVault.get_secret(sql_database_password_secret_name)
-            sqlDatabase = SQLDatabase(sql_server_name, sql_database_name, sql_database_username, sql_database_password)
+            database_connector_args = get_database_connector_args()
+
+            database_connector = DatabaseFactory.get_database_connector_instance(DATABASE_TYPE, **database_connector_args)
             print(column_value_dict)
-            sqlDatabase.insert_data("expense", column_value_dict)
+            database_connector.insert_data(table_name="expense", schema_name= "tracker", data=column_value_dict)
+
             return []
         else:
             return [AllSlotsReset()]
@@ -193,19 +212,13 @@ class ActionSubmitVisualisationForm(Action):
         vis_time_period = tracker.get_slot("vis_time_period")
         message = f"Here is the visualisation of {vis_aggregate_type} of expenses over {vis_time_period} grouped by {vis_group_by_type}."
 
-        sqlQuery = SQLQuery(vis_group_by_type, vis_aggregate_type, vis_time_period)
-        query = sqlQuery.create()
+        visualisation_query_instance = DatabaseFactory.get_visualisation_query_instance(DATABASE_TYPE, vis_group_by_type, vis_aggregate_type, vis_time_period)
+        query = visualisation_query_instance.create()
         print(query)
-        sql_server_name = DatabaseConfig.SQL_DATABASE_SERVER_NAME.value
-        sql_database_name = DatabaseConfig.SQL_DATABASE_NAME.value
-        sql_database_username = DatabaseConfig.SQL_DATABASE_USERNAME.value
-        key_vault_url =  DatabaseConfig.KEY_VAULT_URL.value
-        sql_database_password_secret_name = DatabaseConfig.SQL_DATABASE_PASSWORD_SECRET_NAME.value
         
-        azureKeyVault = AzureKeyVault(key_vault_url)
-        sql_database_password = azureKeyVault.get_secret(sql_database_password_secret_name)
-        sqlDatabase = SQLDatabase(sql_server_name, sql_database_name, sql_database_username, sql_database_password)
-        data = sqlDatabase.get_data(query)
+        database_connector_args = get_database_connector_args()
+        database_connector = DatabaseFactory.get_database_connector_instance(DATABASE_TYPE, **database_connector_args)
+        data = database_connector.execute_query(query)
         
         if vis_group_by_type in ["category", "categories"]:
             csvFile = CSVFile(data, ["Expense Categories", f"{vis_aggregate_type.capitalize()} Expense Amount"])

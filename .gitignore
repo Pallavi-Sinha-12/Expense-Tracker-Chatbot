@@ -7,6 +7,9 @@ actions/__pycache__
 data/__pycache__
 data_exporter/__pycache__
 database/__pycache__
+database/azure_sql_database/__pycache__
+database/postgres_sql_database/__pycache__
 exports/
 models/
-database/DatabaseConfig.py
+database/azure_sql_database/AzureSQLDatabaseConfig.py
+database/postgres_sql_database/PostgresSQLDatabaseConfig.py

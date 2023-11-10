@@ -6,3 +6,4 @@ rasa==3.6.4
 SQLAlchemy==1.4.49
 streamlit== 1.25.0
 streamlit-chat== 0.1.1
+psycopg2==2.9.9

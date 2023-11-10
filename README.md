@@ -37,6 +37,8 @@ Expense Tracker Chatbot is an innovative project that combines the power of natu
 [![Pandas](https://img.shields.io/badge/Pandas-2.0-yellow)](https://pandas.pydata.org/)
 [![PyODBC](https://img.shields.io/badge/PyODBC-4.0-orange)](https://pypi.org/project/pyodbc/)
 [![Azure](https://img.shields.io/badge/Azure-Cloud-blue)](https://azure.microsoft.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14.9-orange)](https://www.postgresql.org/)
+[![psycopg2](https://img.shields.io/badge/pycopg2-2.9-blue)](https://pypi.org/project/psycopg2/)
 
 
 ## Things-Chatbot-Can-Do?
@@ -120,45 +122,106 @@ Install packages
 
 ## Database-Setup
 
-### 1.  Install Azure CLI
+The project supports Azure SQL Database and PostgreSQL. You can choose any of one of these databases to store and manage expense data. 
+
+### Database option 1: Azure SQL Database
+
+#### 1.  Install Azure CLI
 
 Install Azure CLI on your local machine. You can follow the [official documentation](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) to install Azure CLI. You can login to Azure CLI using the command `az login`.
 
-### 2. Create Azure SQL Database
+#### 2. Create Azure SQL Database
 
 Create an Azure SQL Database using Azure CLI or Azure Portal. Make sure you note down the database name, server name, username and password. You will need these details to connect to the database. You can follow the [official documentation](https://learn.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal) to create an Azure SQL Database.
 
-### 3. Create Azure Key Vault
+#### 3. Create Azure Key Vault
 
 For saving secrets, we will create an Azure Key Vault. You can follow the [official documentation](https://docs.microsoft.com/en-us/azure/key-vault/general/quick-create-portal) to create an Azure Key Vault.
 
-### 4. Store Database Credentials in Azure Key Vault
+#### 4. Store Database Credentials in Azure Key Vault
 
 Store the database password in Azure Key Vault. You can follow the [official documentation](https://docs.microsoft.com/en-us/azure/key-vault/secrets/quick-create-portal) to store the database password in Azure Key Vault. Make sure you note down the secret name. You will need this detail to retrieve the database credentials.
 
-### 5. Create Azure SQL Database Table
+#### 5. Create Azure SQL Database Table
 
-Go to you Azure Portal and create table names `dbo.expense`. Add columns `category`, `amount`, `date` in the table.
+Go to you Azure Portal and create table named `tracker.expense`. Add columns `category`, `amount`, `date` in the table. The data type of `category` column should be `varchar(255)`, `amount` column should be `int` and `date` column should be `date`. You can follow the [official documentation](https://docs.microsoft.com/en-us/azure/azure-sql/database/single-database-create-quickstart?view=azuresql&tabs=azure-portal) to create an Azure SQL Database table.
 
-### 6. Create Azure SQL Database Table Columns
-
-Create an Azure SQL Database table columns using Azure CLI. You can also create it using Azure Portal. Make sure you note down the column names. You will need this detail to connect to the database.
-
-### 7. Add client IP to Azure SQL Database Firewall
+#### 6. Add client IP to Azure SQL Database Firewall
 
 Add your client IP to Azure SQL Database Firewall. Go on Azure Portal, click on overview of your Azure SQL Database, click on Set server firewall. Add your client IP to the firewall and save it. For further details, you can follow the [official documentation](https://docs.microsoft.com/en-us/azure/azure-sql/database/firewall-configure?tabs=azure-portal).
 
-### 8. Install the ODBC Driver for connecting to Azure SQL Database
+#### 7. Install the ODBC Driver for connecting to Azure SQL Database
 
 Install the `Microsoft ODBC Driver 17` for connecting to Azure SQL Database. You can follow the [official documentation](https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver15) to install the ODBC Driver.
 
-### 9. Add your Database Credentials to DatabaseConfig.py
+#### 8. Add your Database Credentials to AzureSQLDatabaseConfig.py
 
-Replace the `SQL_DATABASE_SERVER_NAME`, `SQL_DATABASE_NAME`, `SQL_DATABASE_USERNAME`, `KEY_VAULT_URL`, `SQL_DATABASE_PASSWORD_SECRET_NAME` in `database/DatabaseConfig.py` with your database credentials.
+Replace the `SQL_DATABASE_SERVER_NAME`, `SQL_DATABASE_NAME`, `SQL_DATABASE_USERNAME`, `KEY_VAULT_URL`, `SQL_DATABASE_PASSWORD_SECRET_NAME` in `database/azure_sql_database/AzureSQLDatabaseConfig.py` with your database credentials.
+
+#### 9. Add 'AzureSQL' as database type in actions.py file
+
+Assign `AzureSQL` to `SQL_DATABASE_TYPE` in `actions/actions.py`.
+
+### Database option 2: PostgreSQL
+
+#### 1. Install PostgreSQL
+
+Install PostgreSQL on your local machine. You can follow the [official documentation](https://www.postgresql.org/download/) to install PostgreSQL. If you are on macOS, you can install PostgreSQL using Homebrew. You can follow the [official documentation](https://wiki.postgresql.org/wiki/Homebrew) to install PostgreSQL using Homebrew.
+
+#### 2. Create Role and assign privileges
+
+In the command line, go to the `database/postgres_sql_database` directory.
+
+```bash
+  cd database/postgres_sql_database
+```
+
+Run the following command to connect to PostgreSQL Database.
+
+```bash
+  psql postgres
+```
+
+Now run the following command to create a role named `expense_user` and assign privileges to the role. Replace `<your_password>` with your password.
+
+```bash
+  CREATE ROLE expense_user WITH LOGIN PASSWORD '<your_password>';
+  ALTER ROLE expense_user CREATEDB;
+```
+
+Quit the PostgreSQL Database by running the following command.
+
+```bash
+  \q
+```
+
+#### 3. Run setup_script.sql
+
+Now as we have newly created user, we will create database, schema and table.
+
+Run the following command to connect to PostgreSQL Database with the new user `expense_user`.
+
+```bash
+  psql postgres -U expense_user
+```
+
+Run the following command to create database, schema and table.
+
+```bash
+  \i setup_script.sql
+```
+
+#### 4. Add your Database Credentials to PostgresSQLDatabaseConfig.py
+
+Replace the `SQL_DATABASE_HOST`, `PORT`, `SQL_DATABASE_NAME`, `SQL_DATABASE_USERNAME`, `SQL_DATABASE_PASSWORD` in `database/postgres_sql/PostgresSQLDatabaseConfig.py` with your database credentials. The values of `SQL_DATABASE_USERNAME` and `SQL_DATABASE_PASSWORD` should be same as the one you created in step 2. The others are also added by default. If you have changed the default values, you can replace them with your values.
+
+#### 5. Add 'PostgresSQL' as database type in actions.py file
+
+Assign `PostgresSQL` to `SQL_DATABASE_TYPE` in `actions/actions.py`.
 
 ## Interact-with-Chatbot
 
-Train RASA chatbot with data
+Make sure you are in root directory. Train RASA chatbot with data
 
 ```bash
   rasa train
@@ -190,7 +253,21 @@ This will start the RASA server on localhost. The default port is 5005. The RASA
   rasa run actions
 ```
 
-**Terminal 3** : Run RASA chatbot streamlit application
+**Terminal 3** : Connect to the database
+
+if you are using Azure SQL Database, run the following command in other terminal
+
+```bash
+  az login
+```
+
+If you are using PostgreSQL, run the following command in other terminal. Replace `<database-name>` and `<username>` with your database name and username.
+
+```bash
+  psql <database-name> -U <username>
+```
+
+**Terminal 4** : Run RASA chatbot streamlit application
 
 ```bash
   streamlit run Expense-Tracker-Chatbot.py
@@ -254,11 +331,21 @@ You can watch full demo [here](https://drive.google.com/file/d/1gHLhFs5gNAH4Gb6V
 - `config.yml` - Contains training configurations for the NLU pipeline and policy ensemble
 - `Expense-Tracker-Chatbot.py` - This is the main script for our Expense Tracker Chatbot's user interface. This Python script uses the Streamlit library to create an interactive and user-friendly interface for the chatbot.
 - `requirements.txt` - This file specifies the Python dependencies required to run the project.
-- `database/` - This folder contains the necessary files to connect to the Azure SQL Database to submit and retrieve expense data.
-- `database/azure_key_vault.py` - This Python script uses the Azure Key Vault library to retrieve the database password from Azure Key Vault.
-- `database/DatabaseConfig.py` - This Python script contains the database configuration details.
-- `database/SQLQuery.py` - This Python script creates SQL Query to retrieve expense data for displaying visual reports based on user's request.
-- `database/SQLDatabase.py` - This Python script uses the pyodbc library to connect to the Azure SQL Database and contains functions to insert and retrieve expense data.
+- `database/` - This folder contains the necessary files to connect to the database to submit and retrieve expense data.
+- `database/postgres_sql_database/` - This folder contains the necessary files to connect to the PostgreSQL database to submit and retrieve expense data.
+- `database/postgres_sql_database/setup_script.sql` - This SQL script creates user, database, schema and table in PostgreSQL database.
+- `database/postgres_sql_database/PostgresSQLDatabaseConfig.py` - This Python script contains the database configuration details.
+- `database/postgres_sql_database/PostgresVisualisationQuery.py` - This Python script creates SQL Query to retrieve expense data for displaying visual reports based on user's request.
+- `database/postgres_sql_database/PostgresSQLDatabaseConnector.py` - This Python script uses the psycopg2 library to connect to the PostgreSQL database and contains functions to insert and retrieve expense data.
+- `database/azure_sql_database/` - This folder contains the necessary files to connect to the Azure SQL database to submit and retrieve expense data.
+- `database/azure_sql_database/AzureKeyVault.py` - This Python script uses the Azure Key Vault library to retrieve the database password from Azure Key Vault.
+- `database/azure_sql_database/AzureSQLDatabaseConfig.py` - This Python script contains the database configuration details.
+- `database/azure_sql_database/AzureSQLVisualisationQuery.py` - This Python script creates SQL Query to retrieve expense data for displaying visual reports based on user's request.
+- `database/azure_sql_database/AzureSQLDatabaseConnector.py` - This Python script uses the pyodbc library to connect to the Azure SQL Database and contains functions to insert and retrieve expense data.
+- `database/azure_sql_database/AzureKeyVault.py` - This Python script uses the Azure Key Vault library to retrieve the database password from Azure Key Vault.
+- `database/DatabaseConnector.py` - This Python script contains DatabaseConnector class which is used to connect to the database and contains functions to insert and retrieve expense data. Any new database connector class should inherit this class.  
+- `database/VisualisationQuery.py` - This Python script creates SQL Query to retrieve expense data for displaying visual reports based on user's request. Any new database visualisation query class should inherit this class.
+- `database/DatabaseFactory.py` - This Python script contains DatabaseFactory class which is used to create database connector and visualisation query objects based on database type.
 - `models/` - After training, Rasa stores model files in this directory. This folder is created when you train the chatbot.
 - `data_exporter/CSVFile.py` - This Python script contains functions to export data for requested visual report to a CSV file.
 - `data_exporter/exports` - This folder contains the CSV files exported for requested visual reports. This folder is created when you request a visual report.
@@ -289,7 +376,7 @@ Here are some ideas for future enhancements to this project:
 - [ ] Use environment variables to store database configuration details.
 - [ ] Add support for chatbot to ask expense details in one go if user wants to enter expense.
 - [ ] Improve chatbot's natural language understanding to handle more complex utterances for expense report requests.
-- [ ] Add support of other SQL databases like MySQL, PostgreSQL, etc.
+- [x] Add support of other SQL databases like MySQL, PostgreSQL, etc.
 - [ ] Deploy the chatbot to production.
 - [ ] Support for other visualizations like pie charts, line charts, etc.
 - [ ] Implement personalized user expense tracking.
