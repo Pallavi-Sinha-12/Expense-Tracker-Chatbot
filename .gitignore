@@ -11,5 +11,4 @@ database/azure_sql_database/__pycache__
 database/postgres_sql_database/__pycache__
 exports/
 models/
-database/azure_sql_database/AzureSQLDatabaseConfig.py
-database/postgres_sql_database/PostgresSQLDatabaseConfig.py
+database/database_config.yaml
