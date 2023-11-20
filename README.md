@@ -17,6 +17,7 @@ Expense Tracker Chatbot is an innovative project that combines the power of natu
 - [Set up your development environment](#Set-up-your-development-environment)
 - [Install Project Locally](#Install-Project-Locally)
 - [Database Setup](#Database-Setup)
+- [Database Configuration](#Database-Configuration)
 - [Interact with Chatbot](#Interact-with-Chatbot)
 - [Demo](#Demo)
 - [Project Structure](#Project-Structure)
@@ -154,19 +155,11 @@ Add your client IP to Azure SQL Database Firewall. Go on Azure Portal, click on 
 
 Install the `Microsoft ODBC Driver 17` for connecting to Azure SQL Database. You can follow the [official documentation](https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver15) to install the ODBC Driver.
 
-#### 8. Add your Database Credentials to AzureSQLDatabaseConfig.py
-
-Replace the `SQL_DATABASE_SERVER_NAME`, `SQL_DATABASE_NAME`, `SQL_DATABASE_USERNAME`, `KEY_VAULT_URL`, `SQL_DATABASE_PASSWORD_SECRET_NAME` in `database/azure_sql_database/AzureSQLDatabaseConfig.py` with your database credentials.
-
-#### 9. Add 'AzureSQL' as database type in actions.py file
-
-Assign `AzureSQL` to `SQL_DATABASE_TYPE` in `actions/actions.py`.
-
 ### Database option 2: PostgreSQL
 
-#### 1. Install PostgreSQL
+#### 1. Install PostgresSQL
 
-Install PostgreSQL on your local machine. You can follow the [official documentation](https://www.postgresql.org/download/) to install PostgreSQL. If you are on macOS, you can install PostgreSQL using Homebrew. You can follow the [official documentation](https://wiki.postgresql.org/wiki/Homebrew) to install PostgreSQL using Homebrew.
+Install PostgresSQL on your local machine. You can follow the [official documentation](https://www.postgresql.org/download/) to install PostgreSQL. If you are on macOS, you can install PostgreSQL using Homebrew. You can follow the [official documentation](https://wiki.postgresql.org/wiki/Homebrew) to install PostgreSQL using Homebrew.
 
 #### 2. Create Role and assign privileges
 
@@ -211,13 +204,15 @@ Run the following command to create database, schema and table.
   \i setup_script.sql
 ```
 
-#### 4. Add your Database Credentials to PostgresSQLDatabaseConfig.py
+## Database-Configuration
 
-Replace the `SQL_DATABASE_HOST`, `PORT`, `SQL_DATABASE_NAME`, `SQL_DATABASE_USERNAME`, `SQL_DATABASE_PASSWORD` in `database/postgres_sql/PostgresSQLDatabaseConfig.py` with your database credentials. The values of `SQL_DATABASE_USERNAME` and `SQL_DATABASE_PASSWORD` should be same as the one you created in step 2. The others are also added by default. If you have changed the default values, you can replace them with your values.
+Run the following command to create configuration file for database
 
-#### 5. Add 'PostgresSQL' as database type in actions.py file
+```bash
+  python database/create_database_config.py
+```
 
-Assign `PostgresSQL` to `SQL_DATABASE_TYPE` in `actions/actions.py`.
+On running the above command, you will be asked to enter the database type. Enter `1` for PostgresSQL Database and `2` for Azure SQL Database. Based on the database type you choose, you will be asked to enter the database configuration details. Enter the details as per your database configuration. The `database_config.yaml` file will be created in the `database` directory. This file contains the database configuration details.
 
 ## Interact-with-Chatbot
 
